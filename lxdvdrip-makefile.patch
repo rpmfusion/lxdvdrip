@@ -1,0 +1,51 @@
+--- Makefile.orig	2006-03-18 10:00:17.000000000 +0100
++++ Makefile	2006-03-18 10:33:25.000000000 +0100
+@@ -1,31 +1,25 @@
+ INSTALLDIR = /usr/local
+-HINWEIS0 = 'Bitte Konfigdatei in /etc mit Changelog abgleichen'
+-HINWEIS1 = 'Check the configuration file in /etc with the Changelog'
+-HINWEIS2 = 'Comparez le fichier de config. en /etc avec le Changelog'
++CFLAGS=
++BINDIR=
++MANDIR=
++DATADIR=
++SYSCONFDIR=
++
+ 
+ all:
+-	gcc -g -ldvdread -lm -o lxdvdrip lxdvdrip.c streamanalyze.c
+-	gcc -g -lm -o lxac3scan lxac3scan.c
+-	cd vamps && make && cd ..
++	gcc -g $(CFLAGS) -ldvdread -lm -o lxdvdrip lxdvdrip.c streamanalyze.c
++	gcc -g $(CFLAGS) -lm -o lxac3scan lxac3scan.c
+ 
+ clean: 
+ 	rm -f lxdvdrip lxac3scan *.o
+-	cd vamps && make clean && cd ..
+ 
+ install:
+-	cp lxdvdrip $(INSTALLDIR)/bin
+-	cp lxac3scan $(INSTALLDIR)/bin
+-	cp lxdvdrip.1 $(INSTALLDIR)/man/man1
+-	cp lxdvdrip.wav $(INSTALLDIR)/share
+-	cd vamps && make install && cd ..
+-	if test -f /etc/lxdvdrip.conf; then echo $(HINWEIS0); fi;
+-	if test -f /etc/lxdvdrip.conf; then echo $(HINWEIS1); fi;
+-	if test -f /etc/lxdvdrip.conf; then echo $(HINWEIS2); else cp lxdvdrip.conf /etc; fi;
+-
+-uninstall:
+-	rm $(INSTALLDIR)/bin/lxdvdrip
+-	rm $(INSTALLDIR)/bin/lxac3scan
+-	rm $(INSTALLDIR)/man/man1/lxdvdrip.1
+-	rm $(INSTALLDIR)/share/lxdvdrip.wav
+-	rm $(INSTALLDIR)/bin/vamps_lxdvdrip
+-	rm $(INSTALLDIR)/bin/play_cell_lxdvdrip
++	mkdir -p $(INSTALLDIR)/$(BINDIR)
++	mkdir -p $(INSTALLDIR)/$(MANDIR)/man1
++	mkdir -p $(INSTALLDIR)/$(DATADIR)
++	mkdir -p $(INSTALLDIR)/$(SYSCONFDIR)
++	cp lxdvdrip $(INSTALLDIR)/$(BINDIR)
++	cp lxac3scan $(INSTALLDIR)/$(BINDIR)
++	cp lxdvdrip.1 $(INSTALLDIR)/$(MANDIR)/man1
++	cp lxdvdrip.wav $(INSTALLDIR)/$(DATADIR)
++	cp lxdvdrip.conf $(INSTALLDIR)/$(SYSCONFDIR)
