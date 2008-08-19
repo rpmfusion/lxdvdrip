@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.51
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Tue Aug 19 2008 David Juran <david@juran.se> - 1.51-3
+- Bump release for rpmfusion
+
 * Sat Mar 18 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
 1.51-2
 - remove -dl workaround
