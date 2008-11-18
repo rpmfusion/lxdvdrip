@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.70
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -9,7 +9,6 @@ URL:            http://lxdvdrip.berlios.de/
 Source0:        http://download.berlios.de/lxdvdrip/lxdvdrip-1.70.tgz
 Patch0:         lxdvdrip-makefile.patch
 Patch1:         lxdvdrip-compile.patch
-Patch2:		lxdvdrip-1.70-dvdread.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  libdvdread-devel >= 4.1.3 libdvdnav-devel
 Requires:       dvdauthor
@@ -29,8 +28,6 @@ only a single Pass Read is needed.
 %setup -q -n lxdvdrip
 %patch0
 %patch1
-%patch2 -p1 -b .dvdread
-
 
 %build
 make CFLAGS="${RPM_OPT_FLAGS}" %{?_smp_mflags}
@@ -57,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Thu Nov 18 2008 David Juran <david@juran.se> - 1.70-4
+- dvdread changed the header structure back. Dropping patch
+
 * Wed Aug 20 2008 David Juran <david@juran.se> - 1.70-3
 - Patch for new libdvdread
 
