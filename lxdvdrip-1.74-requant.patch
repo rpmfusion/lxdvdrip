@@ -1,7 +1,13 @@
 diff -up lxdvdrip/requant/requant_lxdvdrip.c.orig lxdvdrip/requant/requant_lxdvdrip.c
 --- lxdvdrip/requant/requant_lxdvdrip.c.orig	2009-02-22 12:42:28.000000000 +0200
-+++ lxdvdrip/requant/requant_lxdvdrip.c	2009-02-22 12:45:32.000000000 +0200
-@@ -19,7 +19,7 @@
++++ lxdvdrip/requant/requant_lxdvdrip.c	2009-02-22 13:21:26.000000000 +0200
+@@ -14,12 +14,12 @@
+ #define NDEBUG // turns off asserts
+ #define REMOVE_BYTE_STUFFING	// removes series of 0x00
+ 
+-#if defined(__ppc__) || defined(__ppc64__)
++#if defined(__powerpc__) || defined(__powerpc64__)
+ 	#define USE_GLOBAL_REGISTER // assign registers to bit buffers
  #elif defined(__i386__) || defined (__x86_64__)
  	// #define USE_GLOBAL_REGISTER // assign registers to bit buffers
  #else

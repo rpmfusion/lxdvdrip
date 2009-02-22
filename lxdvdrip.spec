@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.74
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -58,13 +58,16 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Sun Feb 22 2009 David Juran <david@juran.se> - 1.74-3
+- ppc, second try
+
 * Sun Feb 22 2009 David Juran <david@juran.se> - 1.74-2
 - fix build on ppc
 
 * Sat Feb 21 2009 David Juran <david@juran.se> - 1.74-1
 - update to 1.74
 - keep dvdbackup from lxdvdrip-1.70 due to requirement on new libdvdread
--clean up rpmlint errors
+- clean up rpmlint errors
 
 * Thu Nov 18 2008 David Juran <david@juran.se> - 1.70-4
 - dvdread changed the header structure back. Dropping patch
