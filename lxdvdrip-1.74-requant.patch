@@ -1,0 +1,12 @@
+diff -up lxdvdrip/requant/requant_lxdvdrip.c.orig lxdvdrip/requant/requant_lxdvdrip.c
+--- lxdvdrip/requant/requant_lxdvdrip.c.orig	2009-02-22 12:42:28.000000000 +0200
++++ lxdvdrip/requant/requant_lxdvdrip.c	2009-02-22 12:45:32.000000000 +0200
+@@ -19,7 +19,7 @@
+ #elif defined(__i386__) || defined (__x86_64__)
+ 	// #define USE_GLOBAL_REGISTER // assign registers to bit buffers
+ #else
+-#	#error "Unknown Architecture"
++	#error "Unknown Architecture"
+ #endif
+ 
+ #define MAX_ERRORS 0 // if above copy slice

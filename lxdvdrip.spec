@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.74
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -9,6 +9,7 @@ URL:            http://lxdvdrip.berlios.de/
 Source0:        http://download.berlios.de/lxdvdrip/lxdvdrip-1.74.tar.gz
 Source1:        dvdbackup.tar.bz2
 Patch0:         lxdvdrip-makefile.patch
+Patch1:         lxdvdrip-1.74-requant.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  libdvdread-devel >= 4.1.3 libdvdnav-devel
 Requires:       dvdauthor
@@ -27,6 +28,7 @@ only a single Pass Read is needed.
 %prep
 %setup -q -n lxdvdrip
 %patch0 -p1 -b .makefile
+%patch1 -p1 -b .requant
 
 rm -fR dvdbackup
 tar -xjf %{SOURCE1}
@@ -56,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Sun Feb 22 2009 David Juran <david@juran.se> - 1.74-2
+- fix build on ppc
+
 * Sat Feb 21 2009 David Juran <david@juran.se> - 1.74-1
 - update to 1.74
 - keep dvdbackup from lxdvdrip-1.70 due to requirement on new libdvdread
