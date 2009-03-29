@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.74
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.74-4
+- rebuild for new F11 features
+
 * Sun Feb 22 2009 David Juran <david@juran.se> - 1.74-3
 - ppc, second try
 
