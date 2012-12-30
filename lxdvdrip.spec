@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.74
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -13,6 +13,10 @@ Patch1:         lxdvdrip-1.74-requant.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  libdvdread-devel >= 4.1.3 libdvdnav-devel
 Requires:       dvdauthor
+
+#According to requant/requant_lxdvdrip.c
+#Only the following arches are supported in 1.74
+ExclusiveArch:  i686 x86_64 ppc ppc64
 
 %description
 This program is able to rip a DVD title or chapters, reauthor the files to a
@@ -58,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Sun Dec 30 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.74-6
+- Set ExclusiveArch rfbz#2464
+
 * Wed Feb 08 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.74-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
