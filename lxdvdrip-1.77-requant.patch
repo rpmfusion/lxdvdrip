@@ -1,9 +1,8 @@
-diff -up lxdvdrip/requant/requant_lxdvdrip.c.orig lxdvdrip/requant/requant_lxdvdrip.c
---- lxdvdrip/requant/requant_lxdvdrip.c.orig	2009-02-22 12:42:28.000000000 +0200
-+++ lxdvdrip/requant/requant_lxdvdrip.c	2009-02-22 13:21:26.000000000 +0200
-@@ -14,12 +14,12 @@
+--- requant/requant_lxdvdrip.orig.c	2011-10-05 23:24:37.000000000 +0200
++++ requant/requant_lxdvdrip.c	2016-02-24 19:56:54.391207618 +0100
+@@ -12,12 +12,12 @@
+ 
  #define NDEBUG // turns off asserts
- #define REMOVE_BYTE_STUFFING	// removes series of 0x00
  
 -#if defined(__ppc__) || defined(__ppc64__)
 +#if defined(__powerpc__) || defined(__powerpc64__)

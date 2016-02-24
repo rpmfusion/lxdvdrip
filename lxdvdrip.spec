@@ -1,17 +1,21 @@
 Name:           lxdvdrip
-Version:        1.74
-Release:        7%{?dist}
+Version:        1.77
+Release:        1%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
-License:        GPLv2
-URL:            http://lxdvdrip.berlios.de/
-Source0:        http://download.berlios.de/lxdvdrip/lxdvdrip-1.74.tar.gz
+License:        GPLv2+
+URL:            https://sourceforge.net/projects/lxdvdrip/
+Source0:        https://sourceforge.net/projects/lxdvdrip/files/lxdvdrip-%{version}.tgz
 Source1:        dvdbackup.tar.bz2
+
+# Set make file to compile properly
 Patch0:         lxdvdrip-makefile.patch
-Patch1:         lxdvdrip-1.74-requant.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:  libdvdread-devel >= 4.1.3 libdvdnav-devel
+#Define code for PPC
+Patch1:         lxdvdrip-%{version}-requant.patch
+
+BuildRequires:  libdvdread-devel >= 4.1.3
+BuildRequires:  libdvdnav-devel
 Requires:       dvdauthor
 
 #According to requant/requant_lxdvdrip.c
@@ -31,37 +35,54 @@ only a single Pass Read is needed.
 
 %prep
 %setup -q -n lxdvdrip
-%patch0 -p1 -b .makefile
-%patch1 -p1 -b .requant
+%patch0 -p0 -b .makefile
+%patch1 -p0 -b .requant
 
 rm -fR dvdbackup
 tar -xjf %{SOURCE1}
 chmod 644 doc-pak/lxdvdrip.conf.*
 
+# Remove spurious permissions
+for i in `find . -type f \( -name "*.h" -o -name "*.c" \)`; do
+chmod a-x $i
+done
+
 %build
-make CFLAGS="${RPM_OPT_FLAGS}" %{?_smp_mflags}
+make %{?_smp_mflags} \
+ CFLAGS="${RPM_OPT_FLAGS} -pie -Wl,-z,now" \
+ LDFLAGS="${RPM_LD_FLAGS} -pie -Wl,-z,now -Wl,--as-needed -lm -ldvdread -ldvdnav -lpthread"
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install INSTALLDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} MANDIR=%{_mandir} \
-DATADIR=%{_datadir}/%{name}-%{version} SYSCONFDIR=%{_sysconfdir} \
-PREFIX=$RPM_BUILD_ROOT%{_usr} INSTBIN=$RPM_BUILD_ROOT%{_bindir}
+make CFLAGS="${RPM_OPT_FLAGS} -pie -fPIC -Wl,-z,now" \
+ LDFLAGS="${RPM_LD_FLAGS} -pie -fPIC -Wl,-z,now" \
+ install INSTALLDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} MANDIR=%{_mandir} \
+ DATADIR=%{_datadir}/%{name}-%{version} SYSCONFDIR=%{_sysconfdir} \
+ PREFIX=$RPM_BUILD_ROOT%{_prefix} INSTBIN=$RPM_BUILD_ROOT%{_bindir}
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+# Set permissions
+chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 
 %files
-%defattr(-,root,root,-)
-%doc doc-pak/Changelog* doc-pak/COPYING doc-pak/lxdvdrip.conf*
-%doc doc-pak/README.* doc-pak/TODO
+%doc doc-pak/Changelog* doc-pak/lxdvdrip.conf*
+%doc doc-pak/README.*
+%license doc-pak/COPYING
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_datadir}/lxdvdrip*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Wed Feb 24 2016 Antonio Trande <sagitter@fedoraproject.org> - 1.77-1
+- Update to 1.77
+- Update Source and URL
+- Patches updated
+- License tagged with %%license
+- Set flags for hardened builds
+- Remove spurious permissions
+
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.74-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
@@ -85,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 - keep dvdbackup from lxdvdrip-1.70 due to requirement on new libdvdread
 - clean up rpmlint errors
 
-* Thu Nov 18 2008 David Juran <david@juran.se> - 1.70-4
+* Tue Nov 18 2008 David Juran <david@juran.se> - 1.70-4
 - dvdread changed the header structure back. Dropping patch
 
 * Wed Aug 20 2008 David Juran <david@juran.se> - 1.70-3
