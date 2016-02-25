@@ -7,7 +7,6 @@ Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            https://sourceforge.net/projects/lxdvdrip/
 Source0:        https://sourceforge.net/projects/lxdvdrip/files/lxdvdrip-%{version}.tgz
-Source1:        dvdbackup.tar.bz2
 
 # Set make file to compile properly
 Patch0:         lxdvdrip-makefile.patch
@@ -38,8 +37,6 @@ only a single Pass Read is needed.
 %patch0 -p0 -b .makefile
 %patch1 -p0 -b .requant
 
-rm -fR dvdbackup
-tar -xjf %{SOURCE1}
 chmod 644 doc-pak/lxdvdrip.conf.*
 
 # Remove spurious permissions
@@ -82,6 +79,7 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 - License tagged with %%license
 - Set flags for hardened builds
 - Remove spurious permissions
+- Remove Source1: dvdbackup.tar.bz2, upstream have the same source.
 
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.74-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
