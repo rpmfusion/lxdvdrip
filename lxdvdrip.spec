@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.77
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -46,15 +46,15 @@ done
 
 %build
 make %{?_smp_mflags} \
- CFLAGS="${RPM_OPT_FLAGS} -pie -Wl,-z,now" \
- LDFLAGS="${RPM_LD_FLAGS} -pie -Wl,-z,now -Wl,--as-needed -lm -ldvdread -ldvdnav -lpthread"
+ CFLAGS="${RPM_OPT_FLAGS}" \
+ LDFLAGS="${RPM_LD_FLAGS}"
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make CFLAGS="${RPM_OPT_FLAGS} -pie -fPIC -Wl,-z,now" \
- LDFLAGS="${RPM_LD_FLAGS} -pie -fPIC -Wl,-z,now" \
+make CFLAGS="${RPM_OPT_FLAGS}" \
+ LDFLAGS="${RPM_LD_FLAGS}" \
  install INSTALLDIR=$RPM_BUILD_ROOT BINDIR=%{_bindir} MANDIR=%{_mandir} \
  DATADIR=%{_datadir}/%{name}-%{version} SYSCONFDIR=%{_sysconfdir} \
  PREFIX=$RPM_BUILD_ROOT%{_prefix} INSTBIN=$RPM_BUILD_ROOT%{_bindir}
@@ -72,6 +72,9 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Mon Aug 15 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.77-2
+- Remove surplus hardening flags
+
 * Wed Feb 24 2016 Antonio Trande <sagitter@fedoraproject.org> - 1.77-1
 - Update to 1.77
 - Update Source and URL
