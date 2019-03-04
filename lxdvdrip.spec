@@ -13,6 +13,7 @@ Patch0:         lxdvdrip-makefile.patch
 #Define code for PPC
 Patch1:         lxdvdrip-%{version}-requant.patch
 
+BuildRequires:  gcc
 BuildRequires:  libdvdread-devel >= 4.1.3
 BuildRequires:  libdvdnav-devel
 Requires:       dvdauthor
