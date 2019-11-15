@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.77
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -73,6 +73,9 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Fri Nov 15 2019 Dominik 'Rathann' Mierzejewski <rpm@greysector.net> - 1.77-9
+- rebuild for libdvdread ABI bump
+
 * Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.77-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
