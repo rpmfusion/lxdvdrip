@@ -35,8 +35,8 @@ only a single Pass Read is needed.
 
 %prep
 %setup -q -n lxdvdrip
-%patch0 -p0 -b .makefile
-%patch1 -p0 -b .requant
+%patch -P0 -p0 -b .makefile
+%patch -P1 -p0 -b .requant
 
 chmod 644 doc-pak/lxdvdrip.conf.*
 
