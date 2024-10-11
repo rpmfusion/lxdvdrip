@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.77
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -12,6 +12,11 @@ Source0:        https://sourceforge.net/projects/lxdvdrip/files/lxdvdrip-%{versi
 Patch0:         lxdvdrip-makefile.patch
 #Define code for PPC
 Patch1:         lxdvdrip-%{version}-requant.patch
+# Add missing include files (-Werror=implicit-function-declaration)
+Patch2:         lxdvdrip-1.77-header-include.patch
+# Fix sigaction struct usage (-Werror=incompatible-pointer-types)
+# sa_flags does not contain SA_SIGINFO, so sa_handler must be used
+Patch3:         lxdvdrip-1.77-sigaction-hander-type.patch
 
 BuildRequires:  gcc
 BuildRequires:  libdvdread-devel >= 4.1.3
@@ -37,6 +42,8 @@ only a single Pass Read is needed.
 %setup -q -n lxdvdrip
 %patch -P0 -p0 -b .makefile
 %patch -P1 -p0 -b .requant
+%patch -P2 -p1 -b .include
+%patch -P3 -p1 -b .sigaction
 
 chmod 644 doc-pak/lxdvdrip.conf.*
 
@@ -73,6 +80,11 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Fri Oct 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.77-20
+- Patch to fix -Werror=implicit-function-declaration
+- Patch to fix -Werror=imcompatible-pointer-types
+- Patch to stop suppressing compiler warnings
+
 * Fri Aug 02 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.77-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 

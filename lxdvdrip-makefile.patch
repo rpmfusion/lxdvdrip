@@ -100,8 +100,8 @@
 -	gcc -g -O2 -c network.c -Wno-unused-result
 -	gcc -pthread -O2 -g -o mbuffer_lxdvdrip *o -lrt -lm
 +	gcc $(CFLAGS) -c log.c -Wno-unused-result
-+	gcc $(CFLAGS) -c mbuffer.c -w
-+	gcc $(CFLAGS) -c network.c -Wno-unused-result
++	gcc $(CFLAGS) -c mbuffer.c
++	gcc $(CFLAGS) -c network.c
 +	gcc -pthread $(CFLAGS) -o mbuffer_lxdvdrip *o $(LDFLAGS) -lm -lrt
  	if test -f log.o; then rm *.o; fi
  

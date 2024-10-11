@@ -1,0 +1,24 @@
+--- lxdvdrip-1.77/dvdbackup.c.include	2011-10-06 06:24:37.000000000 +0900
++++ lxdvdrip-1.77/dvdbackup.c	2024-10-11 00:43:29.289161856 +0900
+@@ -40,6 +40,7 @@ COMMENTAIRE :
+ #include "ac.h"
+ #include "dvdcell.h"
+ #include "dvdbackup.h"
++#include "dvdcopy.h"
+ #include "mpeg2dec.h"
+ #include "badsect.h"
+ #include "vapcontext.h"
+--- lxdvdrip-1.77/systools.c.include	2011-10-06 06:24:37.000000000 +0900
++++ lxdvdrip-1.77/systools.c	2024-10-11 00:45:27.804422588 +0900
+@@ -22,10 +22,10 @@ COMMENTAIRE :
+ #include <sys/stat.h>
+ #if defined(__sun)
+ #	include <sys/statvfs.h>
+-#	include <sys/ioctl.h>
+ #else
+ #	include <sys/statfs.h>
+ #endif
++#include <sys/ioctl.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+ #if defined(__sun)
