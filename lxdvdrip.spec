@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.77
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -80,6 +80,9 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Tue Jan 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.77-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Oct 11 2024 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.77-20
 - Patch to fix -Werror=implicit-function-declaration
 - Patch to fix -Werror=imcompatible-pointer-types
