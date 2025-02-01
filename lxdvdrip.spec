@@ -1,6 +1,6 @@
 Name:           lxdvdrip
 Version:        1.77
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A command line tool to rip&burn a video DVD
 
 Group:          Applications/Multimedia
@@ -17,6 +17,8 @@ Patch2:         lxdvdrip-1.77-header-include.patch
 # Fix sigaction struct usage (-Werror=incompatible-pointer-types)
 # sa_flags does not contain SA_SIGINFO, so sa_handler must be used
 Patch3:         lxdvdrip-1.77-sigaction-hander-type.patch
+# Support C23 strict function prototype
+Patch4:         lxdvdrip-1.77-c23-prototype.patch
 
 BuildRequires:  gcc
 BuildRequires:  libdvdread-devel >= 4.1.3
@@ -44,6 +46,7 @@ only a single Pass Read is needed.
 %patch -P1 -p0 -b .requant
 %patch -P2 -p1 -b .include
 %patch -P3 -p1 -b .sigaction
+%patch -P4 -p1 -b .c23
 
 chmod 644 doc-pak/lxdvdrip.conf.*
 
@@ -80,6 +83,9 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/*
 %config(noreplace) %{_sysconfdir}/lxdvdrip.conf
 
 %changelog
+* Sat Feb 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.77-22
+- Support C23 strict function prototype
+
 * Tue Jan 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.77-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,0 +1,39 @@
+diff --git a/vaporize.c b/vaporize.c
+index fbdb5d9..9f6c68c 100644
+--- a/vaporize.c
++++ b/vaporize.c
+@@ -151,8 +151,8 @@ char *injections_file = NULL;		// where to inject internal status from
+ const char  progname [] = "vamps";	// we're sucking bytes!
+ static int NoAudioTrack;
+ static int NoSubpTrack;
+-static int ( * ReadFun)();
+-static int ( * WriteFun)();
++static int ( * ReadFun)(void *, unsigned char *, int);
++static int ( * WriteFun)(void *, unsigned char *, int);
+ static void * Parm;
+ static jmp_buf	JmpEnv;
+ static int VideoPacketSize;
+@@ -226,8 +226,8 @@ Linux!jef 2006/01/24 21:41:53
+ ------------------------------------------------------------------------------*/
+ 
+ int VaporizeInit( readFun, writeFun, preserveF )
+-int (* readFun)();
+-int (* writeFun)();
++int (* readFun)(void *, unsigned char *, int);
++int (* writeFun)(void *, unsigned char *, int);
+ int preserveF;
+ {
+ 	memset( spu_track_map, 0, sizeof(spu_track_map));		// subpicture track# translation map
+diff --git a/vaporize.h b/vaporize.h
+index 01ed43e..fc807a8 100644
+--- a/vaporize.h
++++ b/vaporize.h
+@@ -19,7 +19,7 @@ COMMENTAIRE :
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+-int VaporizeInit PROTO((int (*readFun)(), int (*writeFun)(), int preserveF ));
++int VaporizeInit PROTO((int (*readFun)(void *, unsigned char *, int), int (*writeFun)(void *, unsigned char *, int), int preserveF ));
+ int VaporizeAudio PROTO((int audioTrack));
+ int VaporizeSubp PROTO((int subpTrack));
+ int VaporizeFactor PROTO((double factor, int dynF ));
